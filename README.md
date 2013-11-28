@@ -4,7 +4,7 @@ My personal configuration.
 
 What is about?
 ==============
-This repo contains cofiguration files  for program below:
+This repo contains cofiguration files  for following program:
 
 * vim 
 
