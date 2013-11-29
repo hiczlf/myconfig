@@ -4,7 +4,7 @@
 "                        \ V /| | | | | | | | | (__
 "                       (_)_/ |_|_| |_| |_|_|  \___|
 "
-"Author: lf lifenglifeng001@gmail.com 646101029@qq.com
+"Author lf lifenglifeng001@gmail.com 646101029@qq.com
 "If you have something wrong with it, please email me
 
 set nocompatible " be iMproved
@@ -294,7 +294,7 @@ inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
 " have command-line completion <tab> (for filenames, help topics, option names)
 " first list the available options and complete the longest common part, then
 " have further <tab>s cycle through the possibilities:
-set wildmode=list:longest,full
+"set wildmode=list:longest,full
 
 set nowrap " no line wrapping;
 set guioptions+=b " add a horizontal scrollbar to the bottom
@@ -418,8 +418,8 @@ endif
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
 " insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " CUSTOM CONFIGURATION FOR INSTALLED PLUGIN
 "
@@ -458,7 +458,7 @@ endif
 " Configure neocomplcache autocomplete
 " http://www.vim.org/scripts/script.php?script_id=2620
 
-highlight Pmenu gui=bold
+"highlight Pmenu gui=bold
 
 if has("gui_running")
     highlight SpellBad term=underline gui=undercurl guisp=Orange
@@ -574,7 +574,7 @@ endfunction
 "let g:miniBufExplMapWindowNavVim = 1
 "
 " make tabs show complete (no broken on two lines)
-let g:miniBufExplTabWrap = 1
+"let g:miniBufExplTabWrap = 1
 
 " If you use other explorers like TagList you can (As of 6.2.8) set it at 1:
 let g:miniBufExplModSelTarget = 1
