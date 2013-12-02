@@ -57,14 +57,14 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Universal Syntax Checker + Completion
 "Bundle 'UltiSnips'
 Bundle 'scrooloose/syntastic'
-"Bundle "Shougo/neocomplcache"
+Bundle "Shougo/neocomplcache"
+Bundle "Shougo/neocomplete.vim"
 
 " Python Syntax Checker
 Bundle 'kevinw/pyflakes-vim'
 Bundle 'vim-scripts/pep8'
 Bundle 'vim-scripts/Pydiction'
 Bundle "vim-scripts/indentpython.vim"
-Bundle "Shougo/neocomplete.vim"
 
 " Versioning System
 Bundle 'tpope/vim-fugitive'
@@ -245,23 +245,6 @@ map <silent> <leader><cr> :nohlsearch<cr>
 
 " GRB: clear the search buffer when hitting return
 nnoremap <CR> :nohlsearch<CR>/<BS>
-
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-map <leader>ba :1,300 bd!<cr>
-
-" Moving tab using CTRL+ the arrows
-map <C-right> :bn<CR>
-map <C-left> :bp<CR>
-
-" Tab configuration
-map <leader>tn :tabnew! %<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
@@ -445,7 +428,7 @@ map <leader>m :FufFileWithFullCwd<CR>
 map <leader>b :FufBuffer<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MRU shorcuts
+" MRU shorcuts"
 map <leader><space> :MRU<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -454,101 +437,9 @@ if has("gui_running")
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure neocomplcache autocomplete
-" http://www.vim.org/scripts/script.php?script_id=2620
-
-"highlight Pmenu gui=bold
-
-if has("gui_running")
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-endif
+"}}}
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Open Window Explorer NerdTree & Tagbar using (left-right sidebar) using <F8>
-"
-function! ToggleNERDTreeAndTagbar()
-    let w:jumpbacktohere = 1
-
-" Detect which plugins are open
-    if exists('t:NERDTreeBufName')
-        let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
-    else
-        let nerdtree_open = 0
-    endif
-    let tagbar_open = bufwinnr('__Tagbar__') != -1
-
-" Perform the appropriate action
-    if nerdtree_open && tagbar_open
-        NERDTreeClose
-        TagbarClose
-    elseif nerdtree_open
-        TagbarOpen
-    elseif tagbar_open
-        NERDTreeTabsToggle
-    else
-        NERDTreeTabsToggle
-        TagbarOpen
-    endif
-
-" Jump back to the original window
-    for window in range(1, winnr('$'))
-        execute window . 'wincmd w'
-        if exists('w:jumpbacktohere')
-            unlet w:jumpbacktohere
-            break
-        endif
-    endfor
-endfunction
-
-" now you can open NERDTree and Tagbar using F8
-" http://stackoverflow.com/questions/6624043/how-to-open-or-close-nerdtree-and-tagbar-with-leader
-nmap <F8> :call ToggleNERDTreeAndTagbar()<CR>
-
-" TagBar Configuration
-let g:tagbar_usearrows=1
-let g:tagbar_width=30
-let g:tagbar_singleclick=1
-
-" Use leader + l to open Tagbar in Right side
-nnoremap <leader>l :TagbarToggle<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree : https://github.com/scrooloose/nerdtree.git
-" MODIFYING NERDTree MY CUSTOM
-" how to using NERDTree :
-" http://ykyuen.wordpress.com/2011/04/04/nerdtree-the-file-explorer-in-vivim/
-"""""""""""""""""""""""""""""""""""""""""""
-
-" Enable this for make NERDTree load every opening files
-" autocmd VimEnter * NERDTree " Make Always Load NERDTree every opening files
-" autocmd VimEnter * wincmd p " Automatically go to buffer every time open files
-
-" FIXING NERDTree, automatically close if there no file edited
-"https://github.com/scrooloose/nerdtree/issues/21
-"
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-
-" Use leader + . for opening File Explorer
-map <leader>t :NERDTreeTabsToggle<CR>
-let g:NERDTreeShowBookmarks=1
-let g:NERDTreeMouseMode=3
-let g:NERDTreeWinSize=30
-
-" Close all open buffers on entering a window if the only
-" buffer that's left is the NERDTree buffer
-function! s:CloseIfOnlyNerdTreeLeft()
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
-  endif
-endfunction
-
-"}}} 
 
 " Taken from http://dotfiles.org/~joaoTrindade/.vimrc
 
