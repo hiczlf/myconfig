@@ -33,12 +33,6 @@ Bundle 'gmarik/vundle'
 " Files manager
 Bundle 'majutsushi/tagbar'
 Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'vim-scripts/mru.vim'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'sjl/gundo.vim'
 
 " Color scheme
 Bundle 'cschlueter/vim-mustang'
@@ -48,8 +42,6 @@ Bundle 'godlygeek/csapprox'
 Bundle "tsaleh/vim-matchit"
 Bundle 'Raimondi/delimitMate'
 
-" Syntax Commenter
-Bundle 'vim-scripts/tComment'
 
 " HTML Development
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -61,8 +53,7 @@ Bundle "Shougo/neocomplcache"
 Bundle "Shougo/neocomplete.vim"
 
 " Python Syntax Checker
-Bundle 'kevinw/pyflakes-vim'
-Bundle 'vim-scripts/pep8'
+Bundle 'tpope/vim-pathogen'
 Bundle 'vim-scripts/Pydiction'
 Bundle "vim-scripts/indentpython.vim"
 
@@ -105,12 +96,6 @@ filetype plugin indent on " required!
 " Leader = ,
 " MRU = , + space
 " Pep8 = F6
-" FileManager + Tagbar = F8
-" FileManager = , + t
-" FuzzFinder Files = , + m
-" FuzzFinder Buffer = , + b
-" File Explorer = , + t
-" Tagbar = , + l
 "
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -263,8 +248,10 @@ set cursorline
 set colorcolumn=80 " Mark 80th column with a color line
 
 " Taken From http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
-autocmd FileType python highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-autocmd FileType python match OverLength /\%81v.\+/
+"autocmd FileType python highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+"autocmd FileType python match OverLength /\%81v.\+/
+"vim-flake8
+
 
 
 " Set default environment based on current edited files
@@ -279,7 +266,6 @@ inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
 " have further <tab>s cycle through the possibilities:
 "set wildmode=list:longest,full
 
-set nowrap " no line wrapping;
 set guioptions+=b " add a horizontal scrollbar to the bottom
 
 "--- search options ------------
@@ -409,113 +395,15 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pep8 using F6
-" You can change with this :
-let g:pep8_map='<F6>'
 
 " Pydiction
-let g:pydiction_location='/home/ubuntu/.vim/bundle/Pydiction/complete-dict'
+let g:pydiction_location='/home/lf/.vim/bundle/Pydiction/complete-dict'
 
-"""" PYTHON STYLE """"
-let python_highlight_all=1 " Enable all plugin's highlighting.
-let python_slow_sync=1 " For fast machines.
-let python_print_as_function=1 " Color 'print' function.
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FuzzFinder Shorcuts. Using F2 for opening FuzzyFinderTextMate
-map <leader>f :FufFileWithCurrentBufferDir<CR>
-map <leader>m :FufFileWithFullCwd<CR>
-map <leader>b :FufBuffer<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MRU shorcuts"
-map <leader><space> :MRU<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pyflakes configuration
-if has("gui_running")
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-endif
 
 "}}}
 
 
 
-" Taken from http://dotfiles.org/~joaoTrindade/.vimrc
-
-" Minibuffer{{{
-""""""""""""""""""""""""""""""
-"Show the miniBufExplorer from the start
-" let g:miniBufExplorerMoreThanOne = 0
-
-"Not using because I don't use the vertival window
-"Use a vertical windows
-"let g:miniBufExplVSplit = 5
-
-"Put the miniBufExplorer windows at the right
-"let g:miniBufExplSplitBelow=1
-
-"Maximum size of the mini buffer explorer window
-"let g:miniBufExplMaxSize = 15
-
-"Still haven't discovered what it does
-"let g:miniBufExplMapWindowNavArrows = 1
-"let g:miniBufExplMapCTabSwitchBufs = 1
-"let g:miniBufExplUseSingleClick = 1
-"let g:miniBufExplMapWindowNavVim = 1
-"
-" make tabs show complete (no broken on two lines)
-"let g:miniBufExplTabWrap = 1
-
-" If you use other explorers like TagList you can (As of 6.2.8) set it at 1:
-let g:miniBufExplModSelTarget = 1
-
-" If you would like to single click on tabs rather than double clicking on them to goto the selected buffer.
-let g:miniBufExplUseSingleClick = 1
-
-"for buffers that have NOT CHANGED and are NOT VISIBLE.
-highlight MBENormal guifg=LightBlue
-
-" for buffers that HAVE CHANGED and are NOT VISIBLE
-highlight MBEChanged guifg=Red
-
-" buffers that have NOT CHANGED and are VISIBLE
-highlight MBEVisibleNormal term=bold cterm=bold gui=bold guifg=Green
-
-" buffers that have CHANGED and are VISIBLE
-highlight MBEVisibleChanged term=bold cterm=bold gui=bold guifg=Green
-
-let g:bufExplorerSortBy = "name"
-
-autocmd BufRead,BufNew :call UMiniBufExplorer
-
-"""""""""""""""""""""""""""""""""""
-" Stolen from http://dev.gentoo.org/~bass/configs/vimrc.html
-"
-" Adapt the status line accourding to the window
-"""""""""""""""""""""""""""""""""""
-if has("autocmd")
-    au FileType qf
-                \ if &buftype == "quickfix" |
-                \ setlocal statusline=%2*%-3.3n%0* |
-                \ setlocal statusline+=\ \[Compiler\ Messages\] |
-                \ setlocal statusline+=%=%2*\ %<%P |
-                \ endif
-
-    fun! FixMiniBufExplorerTitle()
-        if "-MiniBufExplorer-" == bufname("%")
-            setlocal statusline=%2*%-3.3n%0*
-            setlocal statusline+=\[Buffers\]
-            setlocal statusline+=%=%2*\ %<%P
-        endif
-    endfun
-
-    au BufWinEnter *
-                \ let oldwinnr=winnr() |
-                \ windo call FixMiniBufExplorerTitle() |
-                \ exec oldwinnr . " wincmd w"
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}}}
 
 " Auto complete {{{ ===========
 
@@ -605,4 +493,14 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 "}}}
 
+" python {{{ ===========
+
+let g:syntastic_python_checkers=['flake8']
+"let g:syntastic_python_checkers="['flake8']"
+let g:syntastic_python_flake8_args="--ignore=E501"
+
+"}}}
+
+
 " vim:foldmethod=marker
+" ogle
