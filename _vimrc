@@ -152,6 +152,7 @@ set showmatch
 
 " 尽量使用最少的列显示行号
 set numberwidth=1 
+se nu
 
 
 set title " show title in console title bar

@@ -1,0 +1,9 @@
+[user]
+    name = lifenglifeng001
+    email = lifenglifeng001@gmail.com
+
+[core]
+    editor = vim
+
+[credential]
+    helper = cache --timeout=3600

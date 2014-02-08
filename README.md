@@ -1,13 +1,19 @@
-myconfig
+我的配置文件
 ========
-My personal configuration. 
 
-What is about?
-==============
-This repo contains cofiguration files  for following program:
+我的配置文件，包括:
 
-* vim 
+* vimrc
+* gitconfig
+* bashrc
 
-Thanks
-=========
-Thanks a lot people in github, I get a lot from them.
+
+感谢
+=====
+
+使用git管理配置文件灵感, 和install.sh来源于sontek的[dotfiles](https://github.com/sontek/dotfiles)
+
+大量vim配置来自[Shougo](https://github.com/Shougo)
+
+
+
