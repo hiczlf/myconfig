@@ -19,7 +19,7 @@
 还原以前的配置文件
 ------------------
 
-    bash install.sh recover
+    bash install.sh restore
 
 感谢
 =====
