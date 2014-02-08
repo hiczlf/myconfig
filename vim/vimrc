@@ -4,12 +4,16 @@
 "                        \ V /| | | | | | | | | (__
 "                       (_)_/ |_|_| |_| |_|_|  \___|
 "
-"Author lf lifenglifeng001@gmail.com 646101029@qq.com
-"If you have something wrong with it, please email me
+"作者 lf 
+"邮箱 lifenglifeng001@gmail.com 
+"备用邮箱 646101029@qq.com
 
-set nocompatible " be iMproved
+set nocompatible "不兼容vi
+let mapleader=","
+let g:mapleader=","
+set shell=/bin/bash
 
-"Install vundle and plugins {{{ ====================================
+"安装vundle和插件 {{{ ====================================
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
@@ -29,8 +33,7 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
-
-" Files manager
+"标签管理
 Bundle 'majutsushi/tagbar'
 Bundle 'L9'
 
@@ -72,201 +75,142 @@ endif
 filetype plugin indent on " required!
 
 
-" INSTALLED PACKAGES
-" =========================================
-" Color scheme Mustang : http://hcalves.deviantart.com/art/Mustang-Vim-Colorscheme-98974484
-" Syntastic :https://github.com/scrooloose/syntastic
-" FuzzyFinder : http://www.vim.org/scripts/script.php?script_id=1984
-" L9 : http://www.vim.org/scripts/script.php?script_id=3252
-" Pyflakes : https://github.com/kevinw/pyflakes-vim
-" Pep8 : https://github.com/vim-scripts/pep8
-" NerdTree : https://github.com/scrooloose/nerdtree
-" NerdCommenter : https://github.com/scrooloose/nerdcommenter
-" Tagbar : https://github.com/majutsushi/tagbar
-" Sparkup : http://jetpackweb.com/blog/2010/03/04/write-html-faster-with-sparkup-vim-and-textmate/
-" UltiSnips : http://www.vim.org/scripts/script.php?script_id=2715,
-" http://fueledbylemons.com/blog/2011/07/27/why-ultisnips/
-" MRU : https://github.com/vim-scripts/mru.vim
-" Tagbar : https://github.com/majutsushi/tagbar
-" NeoComplcache : https://github.com/Shougo/neocomplcache
-" IndentPython : https://github.com/vim-scripts/indentpython.vim
-" Fugitive : https://github.com/tpope/vim-fugitive
-
-" Key Shorcuts by Default
-" Leader = ,
-" MRU = , + space
-" Pep8 = F6
-"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
-" About editing file {{{ =================================="
-" Sets how many lines of history VIM has to remember
-set history=1000
+" 文件编辑 {{{ =================================="
 
-" Ignore some file
-set wildignore=*.swp,*.bak,*.pyc,*.class
+" 设置<leader>为逗号
 
-" Set to auto read when a file is changed from the outside
-set autowrite
 
-" With a map leader it's possible to do extra key combinations
-" leader is press comma (,) key
-" like <leader>w saves the current file
-let mapleader=","
-let g:mapleader=","
+" 不匹配以下格式的文件
+set wildignore=*.swp,*.bak,*.pyc,*.class  
 
-" Fast saving with leader + w
+"快速保存文件 
 nmap <leader>w :w!<cr>
 
-" Fast editing of the .vimrc
+"快速编辑 .vimrc
 map <leader>e :e! ~/.vimrc<cr>
 
-" When vimrc is edited, reload it
+" 设定自动保存文件
+set autowrite 
+
+" 当vimrc更改, 重新加载
 autocmd! bufwritepost vimrc source ~/.vimrc
 
+"使用<C-v>粘贴
+inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
 "}}}
 
-" Text, tab and indent related {{{ ====================
+" tab和缩进设置 {{{ ====================
 
+"设置tab为四个空格
+set expandtab
 set tabstop=4
 set softtabstop=4
+
+"设置自动缩进为4个空格
 set shiftwidth=4
-set textwidth=80
+
 set smarttab
-set expandtab
 
+"断行时现实更加美观
 set lbr
-set tw=500
 
-set ai "Auto indent
-set si "Smart indet
-set wrap "Wrap lines
+"行长度最长为160
+set tw=160
+
+set ai "自动缩进
+set si "聪明缩紧
+set wrap "自动换行
 
 "}}}
 
-" => VIM user interface {{{ ===============================
+"  VIM 界面显示 {{{ ===============================
 
-" Scroll when cursor gets within 3 characters of top/bottom edge
+" 光标离顶部和底部至少3行
 set scrolloff=5
 
-set ruler "Always show current position
-set hid "Change buffer - without saving
+" 总是显示当前位置
+set ruler 
 
+" 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存 
+set hid 
+
+" 允许使用鼠标
 set mouse=a
 
-" backspace over everything in insert mode
+"可以删除一切东西
 set backspace=eol,start,indent
+
+" 允许移出当前行 
 set whichwrap+=<,>,h,l
 
-set nolazyredraw "Don't redraw while executing macros
-set magic "Set magic on, for regular expressions
+set magic 
 
-set showmatch "Show matching bracets when text indicator is over them
+"高亮显示对应的空格
+set showmatch
 
-" No sound on errors
-set noerrorbells
-set novisualbell
-set tm=500
+" 尽量使用最少的列显示行号
+set numberwidth=1 
 
-" }}}
 
-" Color settings {{{ =============================================
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable "Enable syntax hl
-
-set shell=/bin/bash
-
-set t_Co=256
-set guioptions-=T
-set background=dark
-let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
-colorscheme mustang
-set nonu
-set gfn=Liberation\ Mono\ 10
-
-set encoding=utf8
-try
-    lang en_US
-catch
-endtry
-
-if has("gui_running")
-" GUI is running or is about to start.
-" Maximize gvim window.
-  set lines=43
-  set co=87
-endif
-
-" }}}
-
-" => Files, backups and undo {{{ =================
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git anyway...
-set nobackup
-set nowb
-set noswapfile
-
-set undodir=~/.vim/undodir
-set undofile
-set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-
-" }}}
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs and buffers {{{ ============================
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"Useful when moving accross long lines
-map j gj
-map k gk
-
-map <silent> <leader><cr> :nohlsearch<cr>
-
-" GRB: clear the search buffer when hitting return
-nnoremap <CR> :nohlsearch<CR>/<BS>
-
-" When pressing <leader>cd switch to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>
-
-" }}}
-
-" My CUSTOM {{{ ================================================
-"
-set cmdheight=1 " Explicitly set the height of the command line
-set number " Display line numbers
-set numberwidth=1 " using only 1 column (and 1 space) while possible
 set title " show title in console title bar
 set wildmenu " Menu completion in command mode on <Tab>
-set pastetoggle=<F3> " Press F3 for toggle paste mode
-set cursorline
+set cursorline "高亮显示光标所在行
 set colorcolumn=80 " Mark 80th column with a color line
-
-" Taken From http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
-"autocmd FileType python highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-"autocmd FileType python match OverLength /\%81v.\+/
-"vim-flake8
-
-
 
 " Set default environment based on current edited files
 autocmd BufEnter * silent! lcd %:p:h
 
-" The best thing here!
-" In insert mode, you can paste from clipboard using CTRL+v
-inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
+" Always show status line, even for one window
+set laststatus=2
 
-" have command-line completion <tab> (for filenames, help topics, option names)
-" first list the available options and complete the longest common part, then
-" have further <tab>s cycle through the possibilities:
-"set wildmode=list:longest,full
+" Show (partial) commands (or size of selection in Visual mode) in the status line
+set showcmd
+" }}}
 
-set guioptions+=b " add a horizontal scrollbar to the bottom
+" 颜色和字体 {{{ =============================================
+
+syntax enable  "使用语法高亮
+
+set t_Co=256 "256色
+set guioptions-=T
+
+set background=dark
+let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+colorscheme mustang
+set gfn=Liberation\ Mono\ 10 "设置字体
+
+set encoding=utf8
+
+" Search and error color highlights
+hi Search guifg=#ffffff guibg=#0000ff gui=none ctermfg=white ctermbg=darkblue
+hi IncSearch guifg=#ffffff guibg=#8888ff gui=none ctermfg=white
+highlight SpellBad guifg=#ffffff guibg=#8888ff gui=none ctermfg=black ctermbg=darkred
+
+" }}}
+
+" 版本控制 {{{ =================
+
+" 关闭自动备份， 因为会使用git备份
+set nobackup
+set nowb
+set noswapfile
+
+" }}}
+
+" 搜索，移动， 标签，缓冲 {{{ ============================
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"应对行很长的情况
+map j gj
+map k gk
+
+"取消搜索时的高亮
+map <silent> <leader><cr> :nohlsearch<cr>
+
+"切换到缓冲所在的文件夹
+map <leader>cd :cd %:p:h<cr>
 
 "--- search options ------------
 set incsearch " show 'best match so far' as you type
@@ -274,45 +218,19 @@ set hlsearch " hilight the items found by the search
 set ignorecase " ignores case of letters on searches
 set smartcase " Override the 'ignorecase' option if the search pattern contains upper case characters
 
-" Search and error color highlights
-hi Search guifg=#ffffff guibg=#0000ff gui=none ctermfg=white ctermbg=darkblue
-hi IncSearch guifg=#ffffff guibg=#8888ff gui=none ctermfg=white
-highlight SpellBad guifg=#ffffff guibg=#8888ff gui=none ctermfg=black ctermbg=darkred
-
-" Use UTF-8 as the default buffer encoding
-set enc=utf-8
-
-" Always show status line, even for one window
-set laststatus=2
-
-
-" Round indent to multiple of 'shiftwidth' for > and < commands
-set shiftround
-
-" Show (partial) commands (or size of selection in Visual mode) in the status line
-set showcmd
-
-" Don't request terminal version string (for xterm)
-set t_RV=
-
-"--- Keystrokes ----------------
-" h and l wrap between lines, cursor keys wrap in insertion mode
-set whichwrap=h,l,~,[,]
-
 " page down with <SPACE>, pageup with - or <BkSpc>
 noremap <Space> <PageDown>
 noremap <BS> <PageUp>
 
-" Execute Python file being edited with <Shift> + e:
-nnoremap E w:<CR>:!python % <CR>
+" }}}
+
+" 编程相关 {{{ ====================================
 
 " Shortcut to Close quickfix window with leader+c
 nnoremap <leader>c <CR>:cclose<CR>
 
-
 "--- python formatting help ---
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-
 
 " markdown
 au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0
@@ -395,15 +313,18 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"}}}
+
+" 插件设置 {{{ ================================================
+
+"Tagbar
+nmap <leader>t :TagbarToggle<CR>
 
 " Pydiction
 let g:pydiction_location='/home/lf/.vim/bundle/Pydiction/complete-dict'
 
 
 "}}}
-
-
-
 
 " Auto complete {{{ ===========
 
@@ -493,7 +414,7 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 "}}}
 
-" python {{{ ===========
+" python 额外 {{{ ===========
 
 let g:syntastic_python_checkers=['flake8']
 "let g:syntastic_python_checkers="['flake8']"
@@ -501,6 +422,4 @@ let g:syntastic_python_flake8_args="--ignore=E501"
 
 "}}}
 
-
 " vim:foldmethod=marker
-" ogle
