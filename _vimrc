@@ -415,11 +415,13 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 "}}}
 
-" python 额外 {{{ ===========
+" 格式检查 {{{ ===========
 
 let g:syntastic_python_checkers=['flake8']
 "let g:syntastic_python_checkers="['flake8']"
 let g:syntastic_python_flake8_args="--ignore=E501"
+
+let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
 
 "}}}
 
