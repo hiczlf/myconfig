@@ -227,11 +227,11 @@ noremap <BS> <PageUp>
 
 " 编程相关 {{{ ====================================
 
+"关闭自动缩紧，因为插入井号总是返回行首很烦人
+set nosmartindent
+
 " Shortcut to Close quickfix window with leader+c
 nnoremap <leader>c <CR>:cclose<CR>
-
-"--- python formatting help ---
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 " markdown
 au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0
