@@ -21,9 +21,12 @@ function unlink_file {
     source="${PWD}/$1"
     target="${HOME}/${1/_/.}"
     
-    if [ -e "${target}.df.bak" ] && [ -L "${target}"]; then
+    if [ -e "${target}.df.bak" ] && [ -L "${target}" ]; then
         unlink ${target}
         mv $target.df.bak $target
+    elif [ -L "${target}" ]; then
+        # 处理以前个人目录没有相应配置文件的情况
+        rm ${target}
     fi
 }
 
