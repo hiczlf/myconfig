@@ -44,6 +44,7 @@ Bundle 'godlygeek/csapprox'
 " Utilities
 Bundle "tsaleh/vim-matchit"
 Bundle 'Raimondi/delimitMate'
+Bundle 'nathanaelkane/vim-indent-guides'
 
 
 " HTML Development
@@ -126,6 +127,13 @@ set wrap "自动换行
 "}}}
 
 "  VIM 界面显示 {{{ ===============================
+
+" 支持对齐线
+let g:indent_guides_guide_size=1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=59
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=59
 
 " 光标离顶部和底部至少3行
 set scrolloff=5
