@@ -42,7 +42,6 @@ Bundle 'cschlueter/vim-mustang'
 Bundle 'godlygeek/csapprox'
 
 " Utilities
-Bundle "tsaleh/vim-matchit"
 Bundle 'Raimondi/delimitMate'
 Bundle 'nathanaelkane/vim-indent-guides'
 
