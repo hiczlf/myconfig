@@ -262,6 +262,12 @@ autocmd FileType css set sw=2
 autocmd FileType css set ts=2
 autocmd FileType css set sts=2
 
+" javascript 
+autocmd FileType javascript set sw=4
+autocmd FileType javascript set ts=4
+autocmd FileType javascript set sts=4
+autocmd FileType javascript set textwidth=79
+
 " Folding
 " auto save folding : http://princ3.wordpress.com/2007/01/26/automaticaly-save-foldings-in-vim/
 set viewoptions=folds
