@@ -43,7 +43,6 @@ Bundle 'godlygeek/csapprox'
 
 " Utilities
 Bundle 'Raimondi/delimitMate'
-Bundle 'nathanaelkane/vim-indent-guides'
 
 
 " HTML Development
@@ -58,7 +57,7 @@ Bundle "Shougo/neocomplete.vim"
 " Python Syntax Checker
 Bundle 'tpope/vim-pathogen'
 Bundle 'vim-scripts/Pydiction'
-Bundle "vim-scripts/indentpython.vim"
+Bundle 'hynek/vim-python-pep8-indent'
 
 " Versioning System
 Bundle 'tpope/vim-fugitive'
@@ -119,20 +118,11 @@ set lbr
 "行长度最长为160
 set tw=160
 
-set ai "自动缩进
-set si "聪明缩紧
 set wrap "自动换行
 
 "}}}
 
 "  VIM 界面显示 {{{ ===============================
-
-" 支持对齐线
-let g:indent_guides_guide_size=1
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=59
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=59
 
 " 光标离顶部和底部至少3行
 set scrolloff=5
@@ -234,8 +224,6 @@ noremap <BS> <PageUp>
 
 " 编程相关 {{{ ====================================
 
-"关闭自动缩紧，因为插入井号总是返回行首很烦人
-set nosmartindent
 
 " Shortcut to Close quickfix window with leader+c
 nnoremap <leader>c <CR>:cclose<CR>
@@ -263,10 +251,14 @@ autocmd FileType css set ts=2
 autocmd FileType css set sts=2
 
 " javascript 
-autocmd FileType javascript set sw=4
+autocmd FileType javascript set Shiftwidth=4
 autocmd FileType javascript set ts=4
 autocmd FileType javascript set sts=4
 autocmd FileType javascript set textwidth=79
+
+" python
+autocmd FileType python setlocal foldmethod=indent nosmartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,class
+
 
 " Folding
 " auto save folding : http://princ3.wordpress.com/2007/01/26/automaticaly-save-foldings-in-vim/
@@ -432,7 +424,7 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 let g:syntastic_python_checkers=['flake8']
 "let g:syntastic_python_checkers="['flake8']"
-let g:syntastic_python_flake8_args="--ignore=E501"
+let g:syntastic_python_flake8_args="--ignore=E501,E126"
 
 let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
 
