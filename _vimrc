@@ -315,6 +315,9 @@ let g:syntastic_python_flake8_args="--ignore=E501,E126,E128,E401,E302"
 
 let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
 
+nmap gt :lprev<CR>
+nmap gn :lnext<CR>
+
 "}}}
 
 " vim:foldmethod=marker
