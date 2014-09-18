@@ -315,9 +315,16 @@ let g:syntastic_python_flake8_args="--ignore=E501,E126,E128,E401,E302"
 
 let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
 
-nmap gt :lprev<CR>
-nmap gn :lnext<CR>
+nmap st :lprev<CR>
+nmap sn :lnext<CR>
 
 "}}}
 
+" 自动补全 {{{ ===========
+
+let g:ycm_global_ycm_extra_conf = ''
+let g:ycm_autoclose_preview_window_after_completion=1
+nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"}}}
 " vim:foldmethod=marker
