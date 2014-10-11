@@ -34,7 +34,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 "标签管理
-Bundle 'majutsushi/tagbar'
 Bundle 'L9'
 
 " Color scheme
@@ -302,9 +301,6 @@ endif
 
 " 插件设置 {{{ ================================================
 
-"Tagbar
-nmap <leader>t :TagbarToggle<CR>
-
 
 "}}}
 
@@ -314,6 +310,7 @@ let g:syntastic_python_checkers=['flake8']
 let g:syntastic_python_flake8_args="--ignore=E501,E126,E128,E401,E302"
 
 let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
+let g:syntastic_always_populate_loc_list = 1
 
 nmap st :lprev<CR>
 nmap sn :lnext<CR>
@@ -324,6 +321,9 @@ nmap sn :lnext<CR>
 
 let g:ycm_global_ycm_extra_conf = ''
 let g:ycm_autoclose_preview_window_after_completion=1
+" 解决youcompleteme server崩溃问题
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "}}}
