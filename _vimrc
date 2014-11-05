@@ -220,6 +220,7 @@ noremap <BS> <PageUp>
 
 " }}}
 
+"
 " 编程相关 {{{ ====================================
 
 
@@ -312,8 +313,8 @@ let g:syntastic_python_flake8_args="--ignore=E501,E126,E128,E401,E302"
 let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
 let g:syntastic_always_populate_loc_list = 1
 
-nmap st :lprev<CR>
-nmap sn :lnext<CR>
+nmap <leader>p :lprev<CR>
+nmap <leader>n :lnext<CR>
 
 "}}}
 
@@ -324,6 +325,7 @@ let g:ycm_autoclose_preview_window_after_completion=1
 " 解决youcompleteme server崩溃问题
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
+let g:ycm_always_populate_location_list = 1
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "}}}
