@@ -10,6 +10,7 @@
 
 set nocompatible "不兼容vi
 let mapleader=","
+let maplocalleader='\'
 let g:mapleader=","
 set shell=/bin/bash
 
@@ -93,11 +94,14 @@ nnoremap <leader>sc :source $MYVIMRC<cr>
 set autowrite 
 
 " 当vimrc更改, 重新加载
-autocmd! bufwritepost vimrc source ~/.vimrc
+autocmd! bufwritepost vimrc source $MYVIMRC
 
 " 更改字符串大小写
 inoremap <c-c> <esc>bviw~ea
 nnoremap <leader>c viw~
+
+" 使用jk也可以退出insert mode
+inoremap jk <esc>
 
 "使用<C-v>粘贴
 " inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
