@@ -83,10 +83,11 @@ filetype plugin indent on " required!
 set wildignore=*.swp,*.bak,*.pyc,*.class  
 
 "快速保存文件 
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<cr>
 
 "快速编辑 .vimrc
-map <leader>e :e! ~/.vimrc<cr>
+nnoremap <leader>se :tabe $MYVIMRC<cr>
+nnoremap <leader>sc :source $MYVIMRC<cr>
 
 " 设定自动保存文件
 set autowrite 
@@ -94,8 +95,12 @@ set autowrite
 " 当vimrc更改, 重新加载
 autocmd! bufwritepost vimrc source ~/.vimrc
 
+" 更改字符串大小写
+inoremap <c-c> <esc>bviw~ea
+nnoremap <leader>c viw~
+
 "使用<C-v>粘贴
-inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
+" inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
 "}}}
 
 " tab和缩进设置 {{{ ====================
@@ -199,14 +204,12 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "应对行很长的情况
-map j gj
-map k gk
+noremap j gj
+noremap k gk
 
 "取消搜索时的高亮
-map <silent> <leader><cr> :nohlsearch<cr>
+noremap <silent> <leader><cr> :nohlsearch<cr>
 
-"切换到缓冲所在的文件夹
-map <leader>cd :cd %:p:h<cr>
 
 "--- search options ------------
 set incsearch " show 'best match so far' as you type
@@ -224,8 +227,8 @@ noremap <BS> <PageUp>
 " 编程相关 {{{ ====================================
 
 
-" Shortcut to Close quickfix window with leader+c
-nnoremap <leader>c <CR>:cclose<CR>
+" Shortcut to Close quickfix window with leader+q
+nnoremap <leader>q <CR>:cclose<CR>
 
 " markdown
 au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0
@@ -257,6 +260,7 @@ autocmd FileType javascript set textwidth=79
 
 " python
 autocmd FileType python setlocal foldmethod=indent nosmartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd bufnewfile *.py so ~/.vim_template/python_header.txt
 
 
 " Folding
@@ -313,8 +317,8 @@ let g:syntastic_python_flake8_args="--ignore=E501,E126,E128,E401,E302"
 let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
 let g:syntastic_always_populate_loc_list = 1
 
-nmap <leader>p :lprev<CR>
-nmap <leader>n :lnext<CR>
+nnoremap <leader>p :lprev<CR>
+nnoremap <leader>n :lnext<CR>
 
 "}}}
 
@@ -329,4 +333,5 @@ let g:ycm_always_populate_location_list = 1
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "}}}
+
 " vim:foldmethod=marker
