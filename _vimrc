@@ -6,7 +6,6 @@
 "
 "作者 lf 
 "邮箱 lifenglifeng001@gmail.com 
-"备用邮箱 646101029@qq.com
 
 set nocompatible "不兼容vi
 let mapleader=","
@@ -61,6 +60,9 @@ Bundle 'tpope/vim-fugitive'
 " YouCompleteMe 自动补全
 Bundle 'Valloric/YouCompleteMe'
 
+" 多行注释
+Bundle 'scrooloose/nerdcommenter'
+
 
 " Installing plugins the first time
 if iCanHazVundle == 0
@@ -97,15 +99,13 @@ set autowrite
 autocmd! bufwritepost vimrc source $MYVIMRC
 
 " 更改字符串大小写
-inoremap <c-c> <esc>bviw~ea
-nnoremap <leader>c viw~
+inoremap <c-t> <esc>bviw~ea
+nnoremap <leader>t viw~
 
 " 使用jk也可以退出insert mode
 inoremap jk <esc>
 
-"使用<C-v>粘贴
-" inoremap <C-v> <ESC>:set paste<CR>"+gp<ESC>:set nopaste<ENTER>i<RIGHT>
-"}}}
+" }}}
 
 " tab和缩进设置 {{{ ====================
 
@@ -135,7 +135,7 @@ set wrap "自动换行
 set scrolloff=5
 
 " 总是显示当前位置
-set ruler 
+set ruler
 
 " 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存 
 set hid 
@@ -218,8 +218,8 @@ noremap <silent> <leader><cr> :nohlsearch<cr>
 "--- search options ------------
 set incsearch " show 'best match so far' as you type
 set hlsearch " hilight the items found by the search
-set ignorecase " ignores case of letters on searches
-set smartcase " Override the 'ignorecase' option if the search pattern contains upper case characters
+" 搜索字符串里面只有小写时, 忽略大小写, 若有大写, 则不忽略大小写
+set ignorecase smartcase 
 
 " page down with <SPACE>, pageup with - or <BkSpc>
 noremap <Space> <PageDown>
@@ -235,7 +235,7 @@ noremap <BS> <PageUp>
 nnoremap <leader>q <CR>:cclose<CR>
 
 " markdown
-au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0
+au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0 filetype=markdown
 
 " http://www.brankovukelic.com/post/2091037293/turn-vim-into-powerful-javascript-editor"
 
@@ -307,9 +307,12 @@ if has("gui_running")
     highlight DiffText cterm=none ctermfg=bg ctermbg=Magenta gui=none guifg=bg guibg=Magenta
 endif
 
+"}}}
+
 
 " 插件设置 {{{ ================================================
-
+" 注释分隔符号后添加空格
+let g:NERDSpaceDelims = 1
 
 "}}}
 
@@ -330,6 +333,7 @@ nnoremap <leader>n :lnext<CR>
 
 let g:ycm_global_ycm_extra_conf = ''
 let g:ycm_autoclose_preview_window_after_completion=1
+
 " 解决youcompleteme server崩溃问题
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
