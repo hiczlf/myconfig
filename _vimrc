@@ -105,6 +105,10 @@ nnoremap <leader>t viw~
 " 使用jk也可以退出insert mode
 inoremap jk <esc>
 
+
+" 防止vim退出清空剪切板
+autocmd VimLeave * call system("echo -n $'" . escape(getreg(), "'") . "' | xsel -ib")
+
 " }}}
 
 " tab和缩进设置 {{{ ====================
@@ -227,7 +231,6 @@ noremap <BS> <PageUp>
 
 " }}}
 
-"
 " 编程相关 {{{ ====================================
 
 
@@ -273,7 +276,8 @@ set viewoptions=folds
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
-autocmd Syntax c,cpp,vim,xml,html,xhtml,js,php set foldmethod=manual
+autocmd Syntax c,cpp,xml,html,xhtml,js,php set foldmethod=manual
+autocmd Syntax vim setlocal foldmethod=marker
 autocmd Syntax python,py set foldmethod=indent
 autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 
@@ -341,5 +345,3 @@ let g:ycm_always_populate_location_list = 1
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "}}}
-
-" vim:foldmethod=marker

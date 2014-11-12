@@ -21,6 +21,13 @@
 
     bash install.sh restore
 
+依赖软件
+----------------
+
+flake8: python 格式检查
+youcompleteme 相关系列
+防止vim退出清空粘贴板： xsel
+
 感谢
 =====
 
