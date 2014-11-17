@@ -27,50 +27,56 @@ endif
 filetype off " required!
 
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
+
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
+
+"测试自己的plugin
+Plugin 'my/myplugin'
+
+Plugin 'my/potion'
 
 "标签管理
-Bundle 'L9'
+Plugin 'L9'
 
 " Color scheme
-Bundle 'cschlueter/vim-mustang'
-Bundle 'godlygeek/csapprox'
+Plugin 'cschlueter/vim-mustang'
+Plugin 'godlygeek/csapprox'
 
 " Utilities
-Bundle 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 
 
 " HTML Development
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " Universal Syntax Checker + Completion
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 
 " Python Syntax Checker
-Bundle 'tpope/vim-pathogen'
-Bundle 'hynek/vim-python-pep8-indent'
+Plugin 'hynek/vim-python-pep8-indent'
 
 " Versioning System
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 " YouCompleteMe 自动补全
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 " 多行注释
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 
 
 " Installing plugins the first time
 if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
+    echo "Installing Plugins, please ignore key map error messages"
     echo ""
     :BundleInstall
 endif
 
+call vundle#end()
 
 filetype plugin indent on " required!
 
@@ -233,9 +239,6 @@ noremap <BS> <PageUp>
 
 " 编程相关 {{{ ====================================
 
-
-" Shortcut to Close quickfix window with leader+q
-nnoremap <leader>q <CR>:cclose<CR>
 
 " markdown
 au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0 filetype=markdown
