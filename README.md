@@ -30,12 +30,5 @@ youcompleteme 相关系列
 
 防止vim退出清空粘贴板： xsel
 
-感谢
-=====
-
-使用git管理配置文件的灵感和一些代码来自于sontek的[dotfiles](https://github.com/sontek/dotfiles)
-
-大量vim配置来自[Shougo](https://github.com/Shougo)
-
 
 
