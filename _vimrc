@@ -4,8 +4,6 @@
 "                        \ V /| | | | | | | | | (__
 "                       (_)_/ |_|_| |_| |_|_|  \___|
 "
-"作者 lf 
-"邮箱 lifenglifeng001@gmail.com 
 
 set nocompatible "不兼容vi
 let mapleader=","
@@ -117,16 +115,13 @@ autocmd VimLeave * call system("echo -n $'" . escape(getreg(), "'") . "' | xsel 
 
 " }}}
 
-" tab和缩进设置 {{{ ====================
+" 编辑设置 {{{ ====================
 
-"设置tab为四个空格
+" tab相关设置
 set expandtab
 set tabstop=4
 set softtabstop=4
-
-"设置自动缩进为4个空格
 set shiftwidth=4
-
 set smarttab
 
 "断行时现实更加美观
@@ -226,8 +221,10 @@ noremap <silent> <leader><cr> :nohlsearch<cr>
 
 
 "--- search options ------------
+
 set incsearch " show 'best match so far' as you type
 set hlsearch " hilight the items found by the search
+
 " 搜索字符串里面只有小写时, 忽略大小写, 若有大写, 则不忽略大小写
 set ignorecase smartcase 
 
@@ -241,69 +238,82 @@ noremap <BS> <PageUp>
 
 
 " markdown
-au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0 filetype=markdown
+au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set filetype=markdown
 
-" http://www.brankovukelic.com/post/2091037293/turn-vim-into-powerful-javascript-editor"
 
-" HTML (tab width 2 chr, no wrapping)
-autocmd FileType html set sw=2
-autocmd FileType html set ts=2
-autocmd FileType html set sts=2
-autocmd FileType html set textwidth=0
+" html 和 xhtml
+augroup html_syntax
+    autocmd!
+    autocmd FileType html,xhtml set shiftwidth=2
+    autocmd FileType html,xhtml set tabstop=2
+    autocmd FileType html,xhtml set softtabstop=2
+    autocmd FileType html,xhtml set textwidth=0
+augroup END
 
-" XHTML (tab width 2 chr, no wrapping)
-autocmd FileType xhtml set sw=2
-autocmd FileType xhtml set ts=2
-autocmd FileType xhtml set sts=2
-autocmd FileType xhtml set textwidth=0
-
-" CSS (tab width 2 chr, wrap at 79th char)
-autocmd FileType css set sw=2
-autocmd FileType css set ts=2
-autocmd FileType css set sts=2
+" CSS 
+augroup css_syntax
+    autocmd!
+    autocmd FileType css set shiftwidth=2
+    autocmd FileType css set tabstop=2
+    autocmd FileType css set softtabstop=2
+    autocmd FileType javascript set textwidth=79
+augroup END
 
 " javascript 
-autocmd FileType javascript set shiftwidth=4
-autocmd FileType javascript set ts=4
-autocmd FileType javascript set sts=4
-autocmd FileType javascript set textwidth=79
+augroup javascript_syntax
+    autocmd!
+    autocmd FileType javascript set shiftwidth=4
+    autocmd FileType javascript set tabstop=4
+    autocmd FileType javascript set softtabstop=4
+    autocmd FileType javascript set textwidth=79
+augroup END
 
 " python
-autocmd FileType python setlocal foldmethod=indent nosmartindent shiftwidth=4 ts=4 et cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd bufnewfile *.py so ~/.vim_template/python_header.txt
+augroup python_syntax
+    autocmd!
+    autocmd FileType python setlocal shiftwidth=4 tabstop=4
+    " 导入python模板文件
+    autocmd bufnewfile *.py so ~/.vim_template/python_header.txt
+augroup END
 
 
-" Folding
-" auto save folding : http://princ3.wordpress.com/2007/01/26/automaticaly-save-foldings-in-vim/
-set viewoptions=folds
-au BufWinLeave * silent! mkview
-au BufWinEnter * silent! loadview
+" 保存缩进和鼠标位置
+augroup save_view
+    autocmd!
+    setlocal viewoptions=cursor,folds
+    au BufWinLeave * silent! mkview
+    au BufWinEnter * silent! loadview
+augroup END
 
-autocmd Syntax c,cpp,xml,html,xhtml,js,php set foldmethod=manual
-autocmd Syntax vim setlocal foldmethod=marker
-autocmd Syntax python,py set foldmethod=indent
-autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
+" 缩进
+augroup fold_method
+    autocmd!
+    autocmd Syntax c,cpp,xml,html,xhtml,js,php set foldmethod=manual
+    autocmd FileType python setlocal foldmethod=indent nosmartindent 
+    autocmd Syntax vim setlocal foldmethod=marker
+    autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
+augroup END
 
-"remove trailing whitespace
-"http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
-autocmd BufWritePre *.c :%s/\s\+$//e
-autocmd BufWritePre *.cpp :%s/\s\+$//e
-autocmd BufWritePre *.c++ :%s/\s\+$//e
-autocmd BufWritePre *.h :%s/\s\+$//e
-autocmd BufWritePre *.java :%s/\s\+$//e
-autocmd BufWritePre *.php :%s/\s\+$//e
-autocmd BufWritePre *.pl :%s/\s\+$//e
-autocmd BufWritePre *.py :%s/\s\+$//e
+" 保存时删除行末尾的空格
+augroup remove_space_EOL
+    autocmd!
+    autocmd BufWritePre *.py :%s/\s\+$//e
+    autocmd BufWritePre *.c :%s/\s\+$//e
+    autocmd BufWritePre *.cpp :%s/\s\+$//e
+    autocmd BufWritePre *.c++ :%s/\s\+$//e
+    autocmd BufWritePre *.h :%s/\s\+$//e
+    autocmd BufWritePre *.java :%s/\s\+$//e
+    autocmd BufWritePre *.php :%s/\s\+$//e
+    autocmd BufWritePre *.pl :%s/\s\+$//e
+augroup END
 
-" tabs, not spaces for php, ctp
-au BufEnter,BufRead *.php,*.ctp set noexpandtab
 
-" Autoclose quickfix windows when quit
+" 退出时自动关闭quickfix
 " http://stackoverflow.com/questions/7476126/how-to-automatically-close-the-quick-fix-window-when-leaving-a-file
-aug QFClose
-  au!
-  au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
-aug END
+augroup QFClose
+  autocmd!
+  autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""'
 if has("gui_running")
