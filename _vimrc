@@ -358,7 +358,7 @@ nnoremap <leader>n :lnext<CR>
 
 " 自动补全 {{{ ===========
 
-let g:ycm_global_ycm_extra_conf = ''
+" let g:ycm_global_ycm_extra_conf = ''
 let g:ycm_autoclose_preview_window_after_completion=1
 
 " 解决youcompleteme server崩溃问题
@@ -366,5 +366,8 @@ let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
 let g:ycm_always_populate_location_list = 1
 nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" 不再提示是否加载ycm_extra_conf.py
+let g:ycm_confirm_extra_conf = 0
 
 "}}}
