@@ -130,6 +130,10 @@ set tw=160
 
 set wrap "自动换行
 
+" 执行当前脚本
+
+nnoremap <leader>r :w<CR>:!%:p 
+
 "}}}
 
 "  VIM 界面显示 {{{ ===============================
@@ -278,6 +282,8 @@ augroup END
 augroup shell_syntax
     autocmd!
     autocmd BufNewFile *.sh so ~/.vim_template/shell_header.txt
+    autocmd BufWritePre *.sh  setlocal autoread
+    autocmd BufWritePost *.sh silent !chmod +x <afile> 
 augroup END
 
 
