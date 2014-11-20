@@ -33,9 +33,7 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 
 "测试自己的plugin
-Plugin 'my/myplugin'
-
-Plugin 'my/potion'
+Plugin 'lifenglifeng001/potion'
 
 "标签管理
 Plugin 'L9'
@@ -273,17 +271,23 @@ augroup python_syntax
     autocmd!
     autocmd FileType python setlocal shiftwidth=4 tabstop=4
     " 导入python模板文件
-    autocmd bufnewfile *.py so ~/.vim_template/python_header.txt
+    autocmd BufNewFile *.py so ~/.vim_template/python_header.txt
+augroup END
+
+" shell
+augroup shell_syntax
+    autocmd!
+    autocmd BufNewFile *.sh so ~/.vim_template/shell_header.txt
 augroup END
 
 
 " 保存缩进和鼠标位置
-augroup save_view
-    autocmd!
-    setlocal viewoptions=cursor,folds
-    au BufWinLeave * silent! mkview
-    au BufWinEnter * silent! loadview
-augroup END
+" augroup save_view
+"     autocmd!
+"     setlocal viewoptions=cursor,folds
+"     au BufWinLeave * silent! mkview
+"     au BufWinEnter * silent! loadview
+" augroup END
 
 " 缩进
 augroup fold_method
