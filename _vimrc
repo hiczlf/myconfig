@@ -33,7 +33,7 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 
 "测试自己的plugin
-Plugin 'lifenglifeng001/potion'
+Plugin 'lifenglifeng001/lfgerp'
 
 "标签管理
 Plugin 'L9'
@@ -298,8 +298,9 @@ augroup END
 " 缩进
 augroup fold_method
     autocmd!
-    autocmd Syntax c,cpp,xml,html,xhtml,js,php set foldmethod=manual
+    autocmd Syntax cpp,xml,html,xhtml,js,php set foldmethod=manual
     autocmd FileType python setlocal foldmethod=indent nosmartindent 
+    autocmd FileType python setlocal foldmethod=syntax
     autocmd Syntax vim setlocal foldmethod=marker
     autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 augroup END
