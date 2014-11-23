@@ -300,7 +300,7 @@ augroup fold_method
     autocmd!
     autocmd Syntax cpp,xml,html,xhtml,js,php set foldmethod=manual
     autocmd FileType python setlocal foldmethod=indent nosmartindent 
-    autocmd FileType python setlocal foldmethod=syntax
+    autocmd FileType c setlocal foldmethod=syntax
     autocmd Syntax vim setlocal foldmethod=marker
     autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 augroup END
