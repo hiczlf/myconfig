@@ -30,6 +30,16 @@ function unlink_file {
     fi
 }
 
+function make_dir {
+    source "${PWD}/$1"
+    target="${HOME}/${1/_/.}"
+
+    if [[ ! -d $target ]]; then
+        mkdir $target
+        mv $target $target.df.bak
+    fi
+}
+
 
 if [ "$1" = "restore" ]; then
     for i in _*
@@ -40,6 +50,10 @@ if [ "$1" = "restore" ]; then
 else
     for i in _*
     do
-        link_file $i
+        if [[ -d $target ]]; then
+            make_dir $i
+        else
+            link_file $i
+        fi
     done
 fi

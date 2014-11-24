@@ -33,7 +33,7 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 
 "测试自己的plugin
-Plugin 'lifenglifeng001/potion'
+Plugin 'lifenglifeng001/lfgrep'
 
 "标签管理
 Plugin 'L9'
@@ -63,6 +63,9 @@ Plugin 'Valloric/YouCompleteMe'
 
 " 多行注释
 Plugin 'scrooloose/nerdcommenter'
+
+"Nerdtree
+Plugin 'scrooloose/nerdtree'
 
 
 " Installing plugins the first time
@@ -111,9 +114,6 @@ inoremap jk <esc>
 " 防止vim退出清空剪切板
 autocmd VimLeave * call system("echo -n $'" . escape(getreg(), "'") . "' | xsel -ib")
 
-" }}}
-
-" 编辑设置 {{{ ====================
 
 " tab相关设置
 set expandtab
@@ -133,6 +133,10 @@ set wrap "自动换行
 " 执行当前脚本
 
 nnoremap <leader>r :w<CR>:!%:p 
+
+
+" 显示目录树
+map <C-n> :NERDTreeToggle<CR>
 
 "}}}
 
@@ -371,3 +375,4 @@ nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_confirm_extra_conf = 0
 
 "}}}
+
