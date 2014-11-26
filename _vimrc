@@ -67,10 +67,6 @@ Plugin 'scrooloose/nerdcommenter'
 " Nerdtree
 Plugin 'scrooloose/nerdtree'
 
-" RestructuredText
-Plugin 'Rykka/riv.vim'
-Plugin 'rykka/clickable.vim'
-
 
 " Installing plugins the first time
 if iCanHazVundle == 0
