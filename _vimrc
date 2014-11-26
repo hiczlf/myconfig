@@ -64,8 +64,12 @@ Plugin 'Valloric/YouCompleteMe'
 " 多行注释
 Plugin 'scrooloose/nerdcommenter'
 
-"Nerdtree
+" Nerdtree
 Plugin 'scrooloose/nerdtree'
+
+" RestructuredText
+Plugin 'Rykka/riv.vim'
+Plugin 'rykka/clickable.vim'
 
 
 " Installing plugins the first time
@@ -280,6 +284,8 @@ augroup python_syntax
     autocmd FileType python setlocal shiftwidth=4 tabstop=4
     " 导入python模板文件
     autocmd BufNewFile *.py so ~/.vim_template/python_header.txt
+    autocmd BufWritePre *.py  setlocal autoread
+    autocmd BufWritePost *.py silent !chmod +x <afile> 
 augroup END
 
 " shell
