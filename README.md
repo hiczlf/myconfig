@@ -28,6 +28,8 @@ flake8: python 格式检查
 
 youcompleteme 相关系列
 
+jshint javascript 格式检查
+
 防止vim退出清空粘贴板： xsel
 
 
