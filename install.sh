@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 
-#使用然链接来配置文件， 想来想去或许为最好的选择
 
 function link_file {
     source="${PWD}/$1"
