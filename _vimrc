@@ -246,6 +246,14 @@ noremap <BS> <PageUp>
 " markdown
 au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set filetype=markdown
 
+augroup yaml_syntax
+    autocmd!
+    autocmd FileType yaml set shiftwidth=2
+    autocmd FileType yaml set tabstop=2
+    autocmd FileType yaml set softtabstop=2
+    autocmd FileType yaml set textwidth=0
+augroup END
+
 
 " html 和 xhtml
 augroup html_syntax
