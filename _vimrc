@@ -1,146 +1,106 @@
-"
-"                       __   _(_)_ __ ___  _ __ ___
-"                       \ \ / / | '_ ` _ \| '__/ __|
-"                        \ V /| | | | | | | | | (__
-"                       (_)_/ |_|_| |_| |_|_|  \___|
-"
+" 设置文件编码
 
-set nocompatible "不兼容vi
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,latin1
+" 映射 --- {{{
 let mapleader=","
-let maplocalleader='\'
-let g:mapleader=","
-set shell=/bin/bash
+let maplocalleader="\\"
 
-"安装vundle和插件 {{{ ====================================
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
+" map
+" 编辑vimrc 文件
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+" 执行vimrc 文件
+nnoremap <leader>sv :source $MYVIMRC<cr>
+" 取消搜索高亮
+noremap <silent> <leader><cr> :nohlsearch<cr>
+" 使用jk退出编辑模式
+inoremap jk <esc>
 
-filetype off " required!
+" ubuntu 下面系统解决版寄存器时+， 使用*映射
+vnoremap "*y "+y
+nnoremap "*p "+p
+nnoremap "*P "+P
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#begin()
+" }}}
 
-
-" let Vundle manage Vundle
-" required!
-Plugin 'gmarik/vundle'
-
-"测试自己的plugin
-Plugin 'lifenglifeng001/lfgrep'
-
-"标签管理
-Plugin 'L9'
-
-" Color scheme
-Plugin 'cschlueter/vim-mustang'
-Plugin 'godlygeek/csapprox'
-
-" Utilities
-Plugin 'Raimondi/delimitMate'
+" 插件 --- {{{
+set nocompatible              " 不兼容vi
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
 
 
-" HTML Development
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" 设置运行路径和vundle路径
+if has("win32")
+    set rtp+=$USERPROFILE/vimfiles/bundle/Vundle.vim/
+	call vundle#begin('$USERPROFILE/vimfiles/bundle/')
+else
+	set rtp+=~/.vim/bundle/Vundle.vim
+	call vundle#begin()
+endif 
 
-" Universal Syntax Checker + Completion
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" 样式
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+
+" 文件浏览
+Plugin 'scrooloose/nerdtree'
+
+" 格式检查
 Plugin 'scrooloose/syntastic'
 
-" Python Syntax Checker
-Plugin 'hynek/vim-python-pep8-indent'
-
-" Versioning System
-Plugin 'tpope/vim-fugitive'
-
-" YouCompleteMe 自动补全
-Plugin 'Valloric/YouCompleteMe'
+" 自动补全
+Plugin 'davidhalter/jedi-vim'
 
 " 多行注释
 Plugin 'scrooloose/nerdcommenter'
 
-" Nerdtree
-Plugin 'scrooloose/nerdtree'
 
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+"}}}
 
-" Installing plugins the first time
-if iCanHazVundle == 0
-    echo "Installing Plugins, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
+" 插件设置 --- {{{
 
-call vundle#end()
-
-filetype plugin indent on " required!
-
+"  ------ NERDTree
+" 自动打开文件浏览当gvim没有选择文件打开时
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" 打开关闭nerdtree 
+map <leader>n :NERDTreeToggle<CR>
 
 " }}}
 
-" 文件编辑 {{{ =================================="
+" 编辑 --- {{{
+" 自动缩进
+filetype indent on
 
-" 设置<leader>为逗号
+" 设置删除键在所有模式生效
+set backspace=indent,eol,start
 
-
-" 不匹配以下格式的文件
-set wildignore=*.swp,*.bak,*.pyc,*.class  
-
-"快速保存文件 
-nnoremap <leader>w :w!<cr>
-
-"快速编辑 .vimrc
-nnoremap <leader>se :tabe $MYVIMRC<cr>
-nnoremap <leader>sc :source $MYVIMRC<cr>
-
-" 设定自动保存文件
-set autowrite 
-
-" 当vimrc更改, 重新加载
-autocmd! bufwritepost vimrc source $MYVIMRC
-
-" 更改字符串大小写
-inoremap <c-t> <esc>bviw~ea
-nnoremap <leader>t viw~
-
-" 使用jk也可以退出insert mode
-inoremap jk <esc>
-
-
-" 防止vim退出清空剪切板
-autocmd VimLeave * call system("echo -n $'" . escape(getreg(), "'") . "' | xsel -ib")
-
-
-" tab相关设置
-set expandtab
+" 设置tab为四个空格
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set smarttab
+set smartindent
+" }}}
 
-"断行时现实更加美观
-set lbr
+" 显示  --- {{{
 
-"行长度最长为160
-set tw=160
+" 搜索高亮显示
+set hlsearch incsearch
 
-set wrap "自动换行
-
-" 执行当前脚本
-
-nnoremap <leader>r :w<CR>:!%:p 
-
-
-" 显示目录树
-map <C-n> :NERDTreeToggle<CR>
-
-"}}}
-
-"  VIM 界面显示 {{{ ===============================
+" 状态栏
+set laststatus=2     " 一直显示状态
+set statusline=%f    " 显示相对路径
+set statusline+=%=   " 切换到右边
+set statusline+=%l   " 当前行号
+set statusline+=/    " 分隔符
+set statusline+=%L   " 总行号
 
 " 光标离顶部和底部至少3行
 set scrolloff=5
@@ -148,100 +108,47 @@ set scrolloff=5
 " 总是显示当前位置
 set ruler
 
-" 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存 
-set hid 
-
-" 允许使用鼠标
-set mouse=a
-
-"可以删除一切东西
-set backspace=eol,start,indent
-
-" 允许移出当前行 
-set whichwrap+=<,>,h,l
-
-set magic 
-
-"高亮显示对应的空格
-set showmatch
-
-" 尽量使用最少的列显示行号
-set numberwidth=1 
-se nu
-
-
-set title " show title in console title bar
-set wildmenu " Menu completion in command mode on <Tab>
+set title " 显示标题
+set wildmenu " 支持命令行自动补全
 set cursorline "高亮显示光标所在行
 set colorcolumn=80 " Mark 80th column with a color line
 
-" Set default environment based on current edited files
-autocmd BufEnter * silent! lcd %:p:h
+" 颜色
+syntax enable        " 语法高亮
+if has("gui_running")
+    set background=dark
+	colorscheme solarized
+else
+    colorscheme molokai
+    let g:rehash256 = 1 " 尽量使用256颜色
+endif 
 
-" Always show status line, even for one window
-set laststatus=2
+" 字体
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
 
-" Show (partial) commands (or size of selection in Visual mode) in the status line
-set showcmd
-" }}}
+" 显示行号
+set number
 
-" 颜色和字体 {{{ =============================================
-
-syntax enable  "使用语法高亮
-
-set t_Co=256 "256色
-set guioptions-=T
-
-set background=dark
-let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
-colorscheme mustang
-set gfn=Liberation\ Mono\ 10 "设置字体
-
-set encoding=utf8
-
-" Search and error color highlights
-hi Search guifg=#ffffff guibg=#0000ff gui=none ctermfg=white ctermbg=darkblue
-hi IncSearch guifg=#ffffff guibg=#8888ff gui=none ctermfg=white
-highlight SpellBad guifg=#ffffff guibg=#8888ff gui=none ctermfg=black ctermbg=darkred
-
-" }}}
-
-" 版本控制 {{{ =================
-
-" 关闭自动备份， 因为会使用git备份
-set nobackup
-set nowb
-set noswapfile
-
-" }}}
-
-" 搜索，移动， 标签，缓冲 {{{ ============================
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"应对行很长的情况
-noremap j gj
-noremap k gk
-
-"取消搜索时的高亮
-noremap <silent> <leader><cr> :nohlsearch<cr>
-
-
-"--- search options ------------
-
-set incsearch " show 'best match so far' as you type
-set hlsearch " hilight the items found by the search
-
-" 搜索字符串里面只有小写时, 忽略大小写, 若有大写, 则不忽略大小写
-set ignorecase smartcase 
-
-" page down with <SPACE>, pageup with - or <BkSpc>
-noremap <Space> <PageDown>
-noremap <BS> <PageUp>
+" 打开文件不默认缩进
+set foldlevel=99
 
 " }}}
 
 " 编程相关 {{{ ====================================
 
+" 代码折叠
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
 
 " markdown
 au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set filetype=markdown
@@ -285,105 +192,47 @@ augroup END
 " python
 augroup python_syntax
     autocmd!
-    autocmd FileType python setlocal shiftwidth=4 tabstop=4
-    " 导入python模板文件
-    autocmd BufNewFile *.py so ~/.vim_template/python_header.txt
-    autocmd BufWritePre *.py  setlocal autoread
-    autocmd BufWritePost *.py silent !chmod +x <afile> 
+	set foldmethod=indent   
+	autocmd FileType python setlocal shiftwidth=4 tabstop=4
 augroup END
 
 " shell
 augroup shell_syntax
     autocmd!
-    autocmd BufNewFile *.sh so ~/.vim_template/shell_header.txt
     autocmd BufWritePre *.sh  setlocal autoread
     autocmd BufWritePost *.sh silent !chmod +x <afile> 
 augroup END
 
+" 格式检查
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" 保存缩进和鼠标位置
-" augroup save_view
-"     autocmd!
-"     setlocal viewoptions=cursor,folds
-"     au BufWinLeave * silent! mkview
-"     au BufWinEnter * silent! loadview
-" augroup END
-
-" 缩进
-augroup fold_method
-    autocmd!
-    autocmd Syntax cpp,xml,html,xhtml,js,php set foldmethod=manual
-    autocmd FileType python setlocal foldmethod=indent nosmartindent 
-    autocmd FileType c setlocal foldmethod=syntax
-    autocmd Syntax vim setlocal foldmethod=marker
-    autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
-augroup END
-
-" 保存时删除行末尾的空格
-augroup remove_space_EOL
-    autocmd!
-    autocmd BufWritePre *.py :%s/\s\+$//e
-    autocmd BufWritePre *.c :%s/\s\+$//e
-    autocmd BufWritePre *.cpp :%s/\s\+$//e
-    autocmd BufWritePre *.c++ :%s/\s\+$//e
-    autocmd BufWritePre *.h :%s/\s\+$//e
-    autocmd BufWritePre *.java :%s/\s\+$//e
-    autocmd BufWritePre *.php :%s/\s\+$//e
-    autocmd BufWritePre *.pl :%s/\s\+$//e
-augroup END
-
-
-" 退出时自动关闭quickfix
-" http://stackoverflow.com/questions/7476126/how-to-automatically-close-the-quick-fix-window-when-leaving-a-file
-augroup QFClose
-  autocmd!
-  autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
-augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""'
-if has("gui_running")
-" Vimdiff colorscheme
-    highlight DiffAdd cterm=none ctermfg=bg ctermbg=Green gui=none guifg=bg guibg=Green
-    highlight DiffDelete cterm=none ctermfg=bg ctermbg=Red gui=none guifg=bg guibg=Red
-    highlight DiffChange cterm=none ctermfg=bg ctermbg=Yellow gui=none guifg=bg guibg=Yellow
-    highlight DiffText cterm=none ctermfg=bg ctermbg=Magenta gui=none guifg=bg guibg=Magenta
-endif
-
-"}}}
-
-
-" 插件设置 {{{ ================================================
-" 注释分隔符号后添加空格
-let g:NERDSpaceDelims = 1
-
-"}}}
-
-" 格式检查 {{{ ===========
-
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args="--ignore=E501,E126,E128,E401,E302"
-
-let g:syntastic_mode_map = {'passive_filetypes': ['rst']}
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
-nnoremap <leader>p :lprev<CR>
-nnoremap <leader>n :lnext<CR>
+let g:syntastic_python_checkers = ['pylint']
+
+nnoremap <silent> <F5> :SyntasticCheck<CR>  
+nnoremap <leader>ln :lnext<CR>  
+nnoremap <leader>lp :lprevious<CR>  
+nnoremap <leader>lc :lclose<CR>  
+
+" 语法提示
+let g:jedi#goto_command = "<leader>jd"
+let g:jedi#goto_assignments_command = "<leader>jg"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>jn"
+" let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>jr"
+
+" 关闭自动补全
+let g:jedi#completions_enabled = 0
 
 "}}}
 
-" 自动补全 {{{ ===========
-
-" let g:ycm_global_ycm_extra_conf = ''
-let g:ycm_autoclose_preview_window_after_completion=1
-
-" 解决youcompleteme server崩溃问题
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
-let g:ycm_always_populate_location_list = 1
-nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" 不再提示是否加载ycm_extra_conf.py
-let g:ycm_confirm_extra_conf = 0
-
-"}}}
-
+" 测试 --- {{{
+" }}} 
